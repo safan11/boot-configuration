@@ -1,0 +1,613 @@
+1.) What is JavaScript?
+ans.) JavaScript is a high-level, interpreted (or just-in-time compiled) programming language that conforms to the ECMAScript specification. It's best known as the scripting language for Web pages, but it's also used in many non-browser environments.
+
+2.) Is JavaScript compiled or interpreted?
+ans.) Traditionally, JavaScript was an interpreted language. However, modern JavaScript engines (like V8 in Chrome) use Just-In-Time (JIT) compilation, where the code is compiled into machine code at runtime for better performance.
+
+3.) What are the primitive data types in JavaScript?
+ans.) The primitive data types are:
+    - String: textual data (e.g., "hello")
+    - Number: integer and floating-point numbers (e.g., 10, 3.14)
+    - Boolean: `true` or `false`
+    - Undefined: a variable that has been declared but not assigned a value
+    - Null: intentional absence of any object value
+    - Symbol (ES6): unique and immutable values
+    - BigInt (ES11): arbitrary-precision integers
+
+4.) What is the difference between `null` and `undefined`?
+ans.)
+    - `undefined`: Means a variable has been declared but has not yet been assigned a value, or a function doesn't return anything, or a property doesn't exist.
+    - `null`: Represents the intentional absence of any object value. It's a primitive value.
+    - `typeof null` is "object", which is a long-standing bug. `typeof undefined` is "undefined".
+
+5.) What is `NaN`?
+ans.) `NaN` stands for "Not-a-Number". It's a special `Number` value that represents an undefined or unrepresentable numerical result (e.g., `0/0`, `Math.sqrt(-1)`).
+eg.) `console.log(0 / 0); // NaN`
+eg.) `console.log(isNaN(10)); // false`
+eg.) `console.log(isNaN("hello")); // true`
+
+6.) How do you declare variables in JavaScript (before ES6)?
+ans.) Using the `var` keyword.
+eg.) `var myVariable = 10;`
+
+7.) What is variable hoisting?
+ans.) Hoisting is a JavaScript mechanism where variable and function declarations are moved to the top of their containing scope during the compilation phase, before code execution. Only the declaration is hoisted, not the initialization.
+eg.) `console.log(x); // Output: undefined`
+    `var x = 5;`
+    `console.log(x); // Output: 5`
+
+8.) What is the scope of `var`?
+ans.) `var` declarations are function-scoped. This means they are accessible throughout the function in which they are declared, or globally if declared outside any function.
+eg.) `function greet() { var message = "hello"; console.log(message); }`
+    `greet(); // "hello"`
+    `console.log(message); // ReferenceError: message is not defined`
+
+9.) What is `==` (loose equality) vs `===` (strict equality)?
+ans.)
+    - `==` (loose equality): Compares values after performing type coercion (converting one type to another if necessary).
+    - `===` (strict equality): Compares values without type coercion. Both the value and the type must be the same.
+eg.) `console.log(5 == "5");   // true`
+eg.) `console.log(5 === "5");  // false`
+eg.) `console.log(null == undefined); // true`
+eg.) `console.log(null === undefined); // false`
+
+10.) What is the difference between an `alert` box, a `confirm` box, and a `prompt` box?
+ans.)
+    - `alert()`: Displays an alert message with an OK button.
+    - `confirm()`: Displays a message with OK and Cancel buttons; returns `true` for OK, `false` for Cancel.
+    - `prompt()`: Displays a message asking for user input; returns the input string or `null` if canceled.
+
+11.) What is a function in JavaScript?
+ans.) A function is a block of code designed to perform a particular task. Functions are reusable and can be called multiple times.
+eg.) `function add(a, b) { return a + b; }`
+
+12.) What are anonymous functions?
+ans.) Functions that do not have a name. They are often used as arguments to other functions or immediately invoked.
+eg.) `document.addEventListener('click', function() { console.log('Clicked!'); });`
+
+13.) What is a callback function?
+ans.) A callback function is a function passed into another function as an argument, which is then invoked inside the outer function to complete some kind of routine or action.
+eg.) `function fetchData(url, callback) { /* ... fetch logic ... */ callback(data); }`
+    `fetchData('/api/users', function(data) { console.log(data); });`
+
+14.) What is the DOM?
+ans.) The DOM (Document Object Model) is a programming interface for web documents. It represents the page structure as a tree of objects, allowing JavaScript to access and manipulate the content, structure, and style of a web page.
+
+15.) How do you select HTML elements using JavaScript?
+ans.)
+    - `document.getElementById('idName')`
+    - `document.getElementsByClassName('className')` (returns HTMLCollection)
+    - `document.getElementsByTagName('tagName')` (returns HTMLCollection)
+    - `document.querySelector('cssSelector')` (returns the first match)
+    - `document.querySelectorAll('cssSelector')` (returns NodeList)
+
+16.) What is an event in JavaScript?
+ans.) Events are actions or occurrences that happen in the browser, such as a user clicking a button, a page loading, a key being pressed, etc. JavaScript allows you to react to these events using event handlers.
+eg.) `button.addEventListener('click', function() { /* ... */ });`
+
+17.) What is event bubbling?
+ans.) Event bubbling is a process where an event starts at the most specific element (the target) and then "bubbles up" to its parent elements, then grandparent elements, and so on, up to the `document` object.
+
+18.) What is event capturing?
+ans.) Event capturing is the opposite of bubbling. The event starts from the `document` object and travels down to the target element. You can specify `true` as the third argument in `addEventListener` to use capturing.
+eg.) `element.addEventListener('click', handler, true);`
+
+19.) What is `this` keyword in JavaScript?
+ans.) The `this` keyword refers to the context in which a function is executed. Its value depends on how the function is called.
+    - In a method: `this` refers to the object the method belongs to.
+    - In a regular function: `this` refers to the global object (`window` in browsers, `undefined` in strict mode).
+    - In an event handler: `this` refers to the element that received the event.
+    - In a constructor: `this` refers to the newly created instance.
+
+20.) How do you handle asynchronous operations in JavaScript (before ES6)?
+ans.) Primarily using callback functions.
+eg.) `setTimeout(function() { console.log("Later!"); }, 1000);`
+    `$.ajax({ url: '/api/data', success: function(data) { console.log(data); } });`
+
+21.) What is the purpose of `use strict`?
+ans.) `use strict` is a directive (introduced in ES5) that enables "strict mode" in JavaScript. Strict mode enforces stricter parsing and error handling, making the code more robust and catching common coding mistakes. It can be used globally or within a function.
+
+22.) What is the `typeof` operator?
+ans.) The `typeof` operator returns a string indicating the type of the unevaluated operand.
+eg.) `typeof 42;         // "number"`
+eg.) `typeof "hello";    // "string"`
+eg.) `typeof true;       // "boolean"`
+eg.) `typeof undefined;  // "undefined"`
+eg.) `typeof null;       // "object" (historical bug)`
+eg.) `typeof {};         // "object"`
+eg.) `typeof [];         // "object"`
+eg.) `typeof function(){}; // "function"`
+
+23.) What is a closure?
+ans.) A closure is a function bundled together with its lexical environment (its surrounding state). It gives you access to an outer function's scope from an inner function, even after the outer function has finished executing.
+eg.) `function outer() { var count = 0; return function inner() { count++; return count; }; }`
+    `var counter = outer();`
+    `console.log(counter()); // 1`
+    `console.log(counter()); // 2`
+
+24.) What is the difference between `let` and `const` (ES6)?
+ans.)
+    - `let`: Block-scoped variable. Can be reassigned but not redeclared in the same scope.
+    - `const`: Block-scoped constant. Must be initialized at declaration and cannot be reassigned or redeclared. Its value is immutable for primitives, but for objects/arrays, the reference is constant, not the content.
+eg.) `{ let x = 10; const y = 20; x = 12; // Ok; y = 22; // Error }`
+
+25.) What is the scope of `let` and `const`?
+ans.) Both `let` and `const` are block-scoped. This means they are only accessible within the block (curly braces `{}`) where they are declared.
+eg.) `if (true) { let x = 10; console.log(x); }`
+    `console.log(x); // ReferenceError: x is not defined`
+
+26.) What are Arrow Functions (ES6)?
+ans.) Arrow functions provide a shorter syntax for writing function expressions. They also have a different behavior regarding the `this` keyword: they do not bind their own `this`, but rather inherit it from the enclosing lexical context.
+eg.) `const add = (a, b) => a + b;`
+eg.) `const greet = () => console.log('Hello');`
+
+27.) What is the `this` context in Arrow Functions?
+ans.) Arrow functions do not have their own `this` context. Instead, they capture the `this` value of the enclosing lexical context at the time they are created. This makes them useful for callbacks inside object methods.
+eg.) `class MyObject { constructor() { this.value = 10; } `
+    `  regularFunction() { setTimeout(function() { console.log(this.value); }, 1000); }` // `this` will be window/undefined
+    `  arrowFunction() { setTimeout(() => { console.log(this.value); }, 1000); }` // `this` will be MyObject instance
+    `}`
+
+28.) What are Template Literals (ES6)?
+ans.) Template literals (backticks `` ` ``) allow for easier string interpolation and multi-line strings.
+eg.) `const name = "Alice";`
+    `console.log(`Hello, ${name}!`); // "Hello, Alice!"`
+    `const multiLine = `This is a
+    multi-line string.`;`
+
+29.) What are Default Parameters (ES6)?
+ans.) Default parameters allow function parameters to be initialized with default values if no value or `undefined` is passed.
+eg.) `function greet(name = "Guest") { console.log(`Hello, ${name}!`); }`
+    `greet();       // "Hello, Guest!"`
+    `greet("Bob");  // "Hello, Bob!"`
+
+30.) What are Destructuring Assignments (ES6)?
+ans.) Destructuring assignment is a syntax that allows you to unpack values from arrays or properties from objects into distinct variables.
+eg.) `const person = { firstName: "John", lastName: "Doe" };`
+    `const { firstName, lastName } = person;` // Object destructuring
+    `console.log(firstName); // "John"`
+eg.) `const colors = ["red", "green", "blue"];`
+    `const [firstColor, secondColor] = colors;` // Array destructuring
+    `console.log(firstColor); // "red"`
+
+31.) What are Spread and Rest Operators (ES6)?
+ans.)
+    - **Spread Operator (`...`):** Expands an iterable (like an array) into individual elements. Used for copying arrays, merging arrays, passing array elements as function arguments.
+    - **Rest Parameter (`...`):** Collects an indefinite number of arguments into an array. Used in function definitions.
+eg.) `const arr1 = [1, 2]; const arr2 = [...arr1, 3, 4]; // Spread: [1, 2, 3, 4]`
+eg.) `function sum(...numbers) { return numbers.reduce((acc, num) => acc + num, 0); }` // Rest
+    `console.log(sum(1, 2, 3)); // 6`
+
+32.) What are JavaScript Classes (ES6)?
+ans.) Classes are a syntactic sugar over JavaScript's existing prototype-based inheritance. They provide a cleaner, more object-oriented syntax for creating objects and dealing with inheritance.
+eg.) `class Person { constructor(name) { this.name = name; } greet() { console.log(`Hello, ${this.name}`); } }`
+
+33.) How do you create an instance of a class?
+ans.) Using the `new` keyword with the class name.
+eg.) `const person1 = new Person("Alice");`
+
+34.) How do you implement inheritance with Classes (ES6)?
+ans.) Using the `extends` keyword for inheritance and `super()` to call the parent class constructor.
+eg.) `class Student extends Person { constructor(name, studentId) { super(name); this.studentId = studentId; } }`
+
+35.) What is `Promise` (ES6)?
+ans.) A `Promise` is an object that represents the eventual completion (or failure) of an asynchronous operation and its resulting value. It helps in managing asynchronous code more elegantly than traditional callbacks, avoiding "callback hell".
+eg.) `const myPromise = new Promise((resolve, reject) => { /* async operation */ });`
+
+36.) What are the states of a Promise?
+ans.)
+    - **Pending:** Initial state, neither fulfilled nor rejected.
+    - **Fulfilled:** Meaning that the operation completed successfully.
+    - **Rejected:** Meaning that the operation failed.
+
+37.) How do you consume a Promise?
+ans.) Using `.then()` for success and `.catch()` for errors.
+eg.) `myPromise.then(result => { console.log(result); }).catch(error => { console.error(error); });`
+
+38.) What is `Promise.all()`?
+ans.) `Promise.all()` takes an iterable of promises as input and returns a single `Promise`. This returned promise fulfills when all of the input promises have fulfilled, or rejects as soon as any of the input promises rejects.
+eg.) `Promise.all([promise1, promise2]).then(results => { console.log(results); });`
+
+39.) What is `Promise.race()`?
+ans.) `Promise.race()` returns a promise that fulfills or rejects as soon as one of the promises in the iterable fulfills or rejects, with the value or reason from that promise.
+eg.) `Promise.race([promise1, promise2]).then(result => { console.log(result); });`
+
+40.) What is the `Set` object (ES6)?
+ans.) The `Set` object lets you store unique values of any type, whether primitive values or object references. It's useful for easily removing duplicate values from an array.
+eg.) `const mySet = new Set([1, 2, 2, 3]);`
+    `console.log(mySet); // Set {1, 2, 3}`
+    `mySet.add(4);`
+    `mySet.delete(1);`
+
+41.) What is the `Map` object (ES6)?
+ans.) The `Map` object holds key-value pairs where the keys can be any data type (unlike `Object` keys, which are strings or Symbols). It maintains the insertion order of elements.
+eg.) `const myMap = new Map();`
+    `myMap.set("name", "Alice");`
+    `myMap.set(1, "one");`
+    `console.log(myMap.get("name")); // "Alice"`
+    `console.log(myMap.size); // 2`
+
+42.) What is the purpose of `for...of` loop (ES6)?
+ans.) The `for...of` loop iterates over iterable objects (like `Array`, `Map`, `Set`, `String`, `TypedArray`, arguments object, etc.), allowing you to access the values of the iterable directly.
+eg.) `const numbers = [1, 2, 3];`
+    `for (const num of numbers) { console.log(num); }`
+
+43.) What is the purpose of `for...in` loop?
+ans.) The `for...in` loop iterates over enumerable string properties of an object (including inherited properties). It's primarily used for iterating over object keys.
+eg.) `const obj = { a: 1, b: 2 };`
+    `for (const key in obj) { console.log(key, obj[key]); }`
+    `// "a" 1, "b" 2`
+
+44.) What is the `Symbol` data type (ES6)?
+ans.) `Symbol` is a primitive data type that creates a unique and immutable value. Symbols are often used as keys for object properties to avoid name collisions, especially when extending objects with private-like properties.
+eg.) `const id = Symbol('id');`
+    `const user = { [id]: 123, name: 'Alice' };`
+
+45.) What is `Array.prototype.find()` (ES6)?
+ans.) The `find()` method returns the **first element** in the provided array that satisfies the provided testing function. If no elements satisfy the testing function, `undefined` is returned.
+eg.) `const numbers = [1, 5, 8, 10];`
+    `const found = numbers.find(num => num > 5); // 8`
+
+46.) What is `Array.prototype.findIndex()` (ES6)?
+ans.) The `findIndex()` method returns the **index of the first element** in the array that satisfies the provided testing function. Otherwise, it returns -1.
+eg.) `const numbers = [1, 5, 8, 10];`
+    `const index = numbers.findIndex(num => num > 5); // 2`
+
+47.) What is the `Set.prototype.has()` method?
+ans.) The `has()` method of `Set` instances returns a boolean indicating whether an element with the specified value is present in the Set object.
+eg.) `const mySet = new Set([1, 2, 3]);`
+    `console.log(mySet.has(2)); // true`
+    `console.log(mySet.has(4)); // false`
+
+48.) What is `Object.assign()` (ES6)?
+ans.) The `Object.assign()` method copies all enumerable own properties from one or more source objects to a target object. It returns the target object. It's commonly used for shallow copying objects or merging objects.
+eg.) `const obj1 = { a: 1 };`
+    `const obj2 = { b: 2, c: 3 };`
+    `const merged = Object.assign({}, obj1, obj2);`
+    `console.log(merged); // { a: 1, b: 2, c: 3 }`
+
+49.) How do `import` and `export` work in ES6 Modules?
+ans.) ES6 Modules provide a standardized way to organize JavaScript code into separate files (modules) and share functionality between them.
+    - `export`: Used to export functions, objects, or primitive values from a module so they can be used by other programs.
+    - `import`: Used to import exported bindings from other modules.
+eg.) `// math.js`
+    `export const add = (a, b) => a + b;`
+    `export const subtract = (a, b) => a - b;`
+
+    `// app.js`
+    `import { add, subtract } from './math.js';`
+    `console.log(add(5, 3)); // 8`
+
+50.) What is the purpose of `...args` in a function definition (Rest parameter)?
+ans.) The rest parameter syntax (`...args`) allows a function to accept an indefinite number of arguments as an array. It collects all remaining arguments into a single array.
+eg.) `function printArguments(firstArg, ...restOfArgs) {`
+    `  console.log("First argument:", firstArg);`
+    `  console.log("Rest of arguments:", restOfArgs);`
+    `}`
+    `printArguments(1, 2, 3, 4, 5);`
+    `/* Output:`
+    `First argument: 1`
+    `Rest of arguments: [2, 3, 4, 5]`
+    `*/`
+```
+
+
+
+
+=============================================================================================================
+
+I cannot directly generate a `.txt` file for you. However, I can provide the content in the exact format you requested, which you can then easily copy and paste into a text editor and save as a `.txt` file.
+
+Here are 50 more JavaScript questions, starting the numbering from 51, covering various JavaScript features with easy explanations and examples:
+
+```
+51.) What is a JavaScript statement?
+ans.) A JavaScript statement is a command that performs an action. It's an instruction to the computer. Statements typically end with a semicolon (;), though it's optional in many cases due to automatic semicolon insertion (ASI).
+eg.) `let x = 10;`
+eg.) `console.log("Hello");`
+
+52.) What is an expression in JavaScript?
+ans.) An expression is a piece of code that produces a value. It can be a variable, a literal, a function call, or a combination of these with operators.
+eg.) `10 + 5` (evaluates to 15)
+eg.) `"hello" + " world"` (evaluates to "hello world")
+eg.) `myFunction()`
+
+53.) What is the `typeof` operator and what does it return for a function?
+ans.) The `typeof` operator returns a string indicating the data type of its operand. For a function, it returns `"function"`.
+eg.) `console.log(typeof function() {}); // "function"`
+eg.) `console.log(typeof console.log); // "function"`
+
+54.) What is the difference between `function declaration` and `function expression`?
+ans.)
+    - **Function Declaration:** A named function defined as a standalone statement. It is hoisted, meaning it can be called before it's defined in the code.
+        `function greet() { console.log("Hello!"); }`
+    - **Function Expression:** A function defined as part of an expression, often assigned to a variable. It is not hoisted like declarations, so it cannot be called before its definition.
+        `const sayHello = function() { console.log("Hello!"); };`
+
+55.) What are immediately invoked function expressions (IIFE)?
+ans.) An IIFE is a JavaScript function that runs as soon as it is defined. It's used to create a private scope for variables, preventing them from polluting the global scope.
+eg.) `(function() {`
+    `  var privateVar = "I am private!";`
+    `  console.log(privateVar);`
+    `})();`
+    `// console.log(privateVar); // ReferenceError: privateVar is not defined`
+
+56.) What is the `global object` in browsers?
+ans.) In web browsers, the global object is `window`. It represents the browser window and contains properties and methods accessible globally, like `document`, `setTimeout`, `console`, etc.
+
+57.) What is the `global object` in Node.js?
+ans.) In Node.js, the global object is `global`. It provides similar functionality to `window` in browsers but is specific to the Node.js environment.
+
+58.) What is `undefined`?
+ans.) `undefined` is a primitive value automatically assigned to variables that have been declared but not yet initialized. It also indicates missing function arguments, the return value of functions that don't explicitly return anything, or non-existent object properties.
+eg.) `let x;`
+    `console.log(x); // undefined`
+
+59.) What is `null`?
+ans.) `null` is a primitive value representing the intentional absence of any object value. It means "no value" or "nothing". It must be explicitly assigned.
+eg.) `let data = null;`
+    `console.log(data); // null`
+
+60.) How do you convert a string to a number?
+ans.)
+    - `parseInt()`: Converts a string to an integer.
+    - `parseFloat()`: Converts a string to a floating-point number.
+    - Unary plus operator (`+`): A quick way to convert to a number.
+    - `Number()`: Converts to a number.
+eg.) `console.log(parseInt("100px")); // 100`
+eg.) `console.log(+"50"); // 50`
+eg.) `console.log(Number("123.45")); // 123.45`
+
+61.) How do you convert a number to a string?
+ans.)
+    - `toString()` method.
+    - String concatenation with an empty string.
+    - `String()` constructor.
+eg.) `let num = 123;`
+    `console.log(num.toString()); // "123"`
+    `console.log(num + "");       // "123"`
+    `console.log(String(num));    // "123"`
+
+62.) What is type coercion?
+ans.) Type coercion is the automatic or implicit conversion of values from one data type to another (e.g., Number to String, String to Number, Boolean to Number, etc.) that happens in JavaScript during certain operations (like `==` comparison, arithmetic operations).
+eg.) `console.log("5" + 5); // "55" (Number 5 is coerced to string "5")`
+eg.) `console.log("10" - 5); // 5 (String "10" is coerced to Number 10)`
+
+63.) What is short-circuit evaluation in logical operators?
+ans.) In logical `AND (&&)` and `OR (||)` operators, JavaScript evaluates from left to right and stops as soon as the result is determined.
+    - `&&`: Returns the first falsy value or the last truthy value.
+    - `||`: Returns the first truthy value or the last falsy value.
+eg.) `const result = false || "Hello"; // result is "Hello"`
+eg.) `const result = true && "World"; // result is "World"`
+eg.) `const result = false && "World"; // result is false`
+
+64.) What is the `!` (NOT) operator?
+ans.) The `!` (logical NOT) operator converts its operand to a boolean value and then negates it (flips `true` to `false` and `false` to `true`).
+eg.) `console.log(!true); // false`
+eg.) `console.log(!0);    // true (0 is falsy, so !0 is true)`
+eg.) `console.log(!!"hello"); // true (!!"hello" converts "hello" to true then negates to false, then negates back to true)`
+
+65.) What is `isNaN()` function?
+ans.) The global `isNaN()` function determines whether a value is `NaN` (Not-a-Number) or can be converted to `NaN`. It returns `true` if the value is `NaN` or becomes `NaN` after conversion, otherwise `false`.
+eg.) `console.log(isNaN(123));     // false`
+eg.) `console.log(isNaN("hello")); // true (because "hello" cannot be converted to a valid number)`
+eg.) `console.log(isNaN(NaN));       // true`
+
+66.) What is `isFinite()` function?
+ans.) The global `isFinite()` function determines whether a passed value is a finite number. It returns `false` if the argument is `NaN`, `positive infinity`, `negative infinity`, or `undefined`. Otherwise, it returns `true`.
+eg.) `console.log(isFinite(123));        // true`
+eg.) `console.log(isFinite(Infinity));   // false`
+eg.) `console.log(isFinite("123"));    // true (string "123" is coerced to number 123)`
+
+67.) What is a `string literal`?
+ans.) A string literal (or string constant) is a sequence of characters enclosed in single quotes (`' '`), double quotes (`" "`), or backticks (`` ` `` for template literals).
+eg.) `'Hello World'`
+eg.) `"JavaScript"`
+eg.) ``My name is ${name}``
+
+68.) What is `String.prototype.length`?
+ans.) The `length` property of a string object indicates the number of code units (characters) in the string.
+eg.) `const str = "hello";`
+    `console.log(str.length); // 5`
+
+69.) How do you concatenate strings in JavaScript?
+ans.) You can concatenate strings using the `+` operator or template literals.
+eg.) `const firstName = "John";`
+    `const lastName = "Doe";`
+    `const fullName = firstName + " " + lastName; // "John Doe"`
+    `const greeting = `Hello, ${firstName} ${lastName}!`; // "Hello, John Doe!"`
+
+70.) What is the purpose of `Math.random()`?
+ans.) `Math.random()` returns a floating-point, pseudo-random number between 0 (inclusive) and 1 (exclusive). It's often used to generate random numbers for various purposes, like games or simulations.
+eg.) `console.log(Math.random()); // A number like 0.789...`
+eg.) `console.log(Math.floor(Math.random() * 10) + 1); // Random integer between 1 and 10`
+
+71.) What is `Math.floor()`?
+ans.) `Math.floor()` is a function that returns the largest integer less than or equal to a given number. Essentially, it rounds a number down to the nearest whole number.
+eg.) `console.log(Math.floor(5.9)); // 5`
+eg.) `console.log(Math.floor(5.1)); // 5`
+eg.) `console.log(Math.floor(-5.9)); // -6`
+
+72.) What is `Math.ceil()`?
+ans.) `Math.ceil()` is a function that returns the smallest integer greater than or equal to a given number. It rounds a number up to the nearest whole number.
+eg.) `console.log(Math.ceil(5.1)); // 6`
+eg.) `console.log(Math.ceil(5.9)); // 6`
+eg.) `console.log(Math.ceil(-5.1)); // -5`
+
+73.) What is `Math.round()`?
+ans.) `Math.round()` is a function that returns the value of a number rounded to the nearest integer. It rounds `.5` up.
+eg.) `console.log(Math.round(5.1)); // 5`
+eg.) `console.log(Math.round(5.5)); // 6`
+eg.) `console.log(Math.round(5.9)); // 6`
+
+74.) What is `Date` object in JavaScript?
+ans.) The `Date` object is used to work with dates and times. It can create date objects representing a specific point in time, and manipulate date values.
+eg.) `const now = new Date();`
+    `console.log(now); // Current date and time`
+eg.) `const christmas = new Date("2025-12-25");`
+
+75.) How do you get the current year using the `Date` object?
+ans.) You can use the `getFullYear()` method of a `Date` object.
+eg.) `const today = new Date();`
+    `const year = today.getFullYear();`
+    `console.log(year); // e.g., 2025`
+
+76.) How do you get the current day of the week (0 for Sunday, 6 for Saturday)?
+ans.) You can use the `getDay()` method of a `Date` object.
+eg.) `const today = new Date();`
+    `const dayOfWeek = today.getDay();`
+    `console.log(dayOfWeek); // e.g., 3 for Wednesday`
+
+77.) What is a `loop` in JavaScript?
+ans.) A loop is a programming construct that repeatedly executes a block of code as long as a certain condition is true or for a specified number of iterations. Common loops include `for`, `while`, `do...while`.
+
+78.) When would you use a `for` loop?
+ans.) A `for` loop is typically used when you know the number of iterations in advance, or when you need to iterate over a sequence (like an array) based on an index.
+eg.) `for (let i = 0; i < 5; i++) {`
+    `  console.log(i); // 0, 1, 2, 3, 4`
+    `}`
+
+79.) When would you use a `while` loop?
+ans.) A `while` loop is used when the number of iterations is not known beforehand, and the loop continues as long as a specified condition remains true.
+eg.) `let count = 0;`
+    `while (count < 3) {`
+    `  console.log(count);`
+    `  count++;`
+    `}`
+    `// Output: 0, 1, 2`
+
+80.) What is the `do...while` loop?
+ans.) The `do...while` loop is similar to the `while` loop, but it guarantees that the loop body will execute at least once, because the condition is checked *after* the first iteration.
+eg.) `let i = 0;`
+    `do {`
+    `  console.log(i);`
+    `  i++;`
+    `} while (i < 0);` // Prints 0, then condition is false, loop stops.
+
+81.) What is the `break` statement?
+ans.) The `break` statement is used to terminate a loop (or `switch` statement) immediately. Execution continues with the statement immediately following the terminated loop.
+eg.) `for (let i = 0; i < 10; i++) {`
+    `  if (i === 5) {`
+    `    break; // Exit the loop when i is 5`
+    `  }`
+    `  console.log(i);`
+    `}`
+    `// Output: 0, 1, 2, 3, 4`
+
+82.) What is the `continue` statement?
+ans.) The `continue` statement is used to skip the current iteration of a loop and move to the next iteration.
+eg.) `for (let i = 0; i < 5; i++) {`
+    `  if (i === 2) {`
+    `    continue; // Skip when i is 2`
+    `  }`
+    `  console.log(i);`
+    `}`
+    `// Output: 0, 1, 3, 4`
+
+83.) What is the `switch` statement?
+ans.) The `switch` statement is used to perform different actions based on different conditions. It evaluates an expression and compares the result to `case` labels.
+eg.) `let day = "Monday";`
+    `switch (day) {`
+    `  case "Monday":`
+    `    console.log("Start of week.");`
+    `    break;`
+    `  case "Friday":`
+    `    console.log("End of week.");`
+    `    break;`
+    `  default:`
+    `    console.log("Mid-week.");`
+    `}`
+
+84.) What is the purpose of `default` case in a `switch` statement?
+ans.) The `default` case is executed if none of the `case` values match the expression. It's optional.
+
+85.) What is `document.write()`?
+ans.) `document.write()` is a method used to write content directly to an HTML document. It's generally not recommended for modern web development, especially after the page has loaded, as it can overwrite the entire document content.
+eg.) `document.write("<h1>Hello from JavaScript!</h1>");`
+
+86.) What is `innerHTML`?
+ans.) `innerHTML` is a property of DOM elements that allows you to get or set the HTML content (including tags and text) inside that element. It's commonly used to dynamically update parts of a web page.
+eg.) `document.getElementById('myDiv').innerHTML = '<h2>New Content</h2>';`
+
+87.) What is `textContent`?
+ans.) `textContent` is a property of DOM elements that allows you to get or set just the text content of an element, ignoring any HTML tags. It's safer than `innerHTML` if you only want to insert plain text, as it prevents XSS attacks.
+eg.) `document.getElementById('myParagraph').textContent = 'This is plain text.';`
+
+88.) How do you add a CSS class to an element using JavaScript?
+ans.) You can use the `classList` property and its `add()` method.
+eg.) `document.getElementById('myElement').classList.add('active');`
+
+89.) How do you remove a CSS class from an element using JavaScript?
+ans.) You can use the `classList` property and its `remove()` method.
+eg.) `document.getElementById('myElement').classList.remove('inactive');`
+
+90.) How do you toggle a CSS class on an element using JavaScript?
+ans.) You can use the `classList` property and its `toggle()` method. If the class exists, it removes it; otherwise, it adds it.
+eg.) `document.getElementById('myElement').classList.toggle('highlight');`
+
+91.) What is the `window` object?
+ans.) The `window` object represents the browser's window. It is the global object for client-side JavaScript. All global variables, functions, and objects (like `document`, `location`, `history`, `setTimeout`) are members of the `window` object.
+
+92.) What is the `document` object?
+ans.) The `document` object represents the HTML document loaded in that window. It is the entry point to the web page's content (the DOM tree). Through it, you can access and manipulate all elements, attributes, and text on the page.
+
+93.) What is `event delegation`?
+ans.) Event delegation is a technique where you attach a single event listener to a parent element, instead of attaching separate listeners to each child element. When an event occurs on a child, it bubbles up to the parent, and the single listener can then determine which child triggered the event. This improves performance and simplifies code, especially for dynamically added elements.
+eg.) `ul.addEventListener('click', function(event) {`
+    `  if (event.target.tagName === 'LI') {`
+    `    console.log('List item clicked:', event.target.textContent);`
+    `  }`
+    `});`
+
+94.) What is `JSON.parse()` and `JSON.stringify()` used for?
+ans.)
+    - `JSON.parse()`: Converts a JSON string into a JavaScript object.
+    - `JSON.stringify()`: Converts a JavaScript object or value into a JSON string.
+eg.) `const obj = { name: "Test" };`
+    `const jsonStr = JSON.stringify(obj); // '{"name":"Test"}'`
+    `const parsedObj = JSON.parse(jsonStr); // { name: "Test" }`
+
+95.) What is `nullish coalescing operator (??)` (ES11, often discussed with ES6+)
+ans.) The nullish coalescing operator `??` returns its right-hand side operand when its left-hand side operand is `null` or `undefined`, and otherwise returns its left-hand side operand. It's distinct from `||` which returns the right-hand side for *any* falsy value (0, '', false, etc.).
+eg.) `const value = null;`
+    `const result = value ?? 'default'; // result is 'default'`
+    `const num = 0;`
+    `const result2 = num ?? 100;       // result2 is 0 (because 0 is not null or undefined)`
+    `const result3 = num || 100;       // result3 is 100 (because 0 is falsy)`
+
+96.) What is `optional chaining (?.)` (ES11, often discussed with ES6+)
+ans.) The optional chaining operator `?.` allows you to safely access properties of an object that might be `null` or `undefined` without causing a `TypeError`. If a property in the chain is `null` or `undefined`, the expression short-circuits and returns `undefined`.
+eg.) `const user = { profile: { name: "Alice" } };`
+    `console.log(user?.profile?.name);   // "Alice"`
+    `console.log(user?.address?.street); // undefined (no error)`
+    `// Vs. user.address.street would throw an error if address is undefined.`
+
+97.) What is the difference between `let` and `var` in terms of hoisting?
+ans.) Both `let` and `var` declarations are hoisted. However, `var` variables are initialized with `undefined` during hoisting, so you can access them before their declaration (though it's bad practice). `let` variables are hoisted but are in a "temporal dead zone" until their declaration is executed, meaning accessing them before declaration results in a `ReferenceError`.
+eg.) `console.log(varVariable); // undefined`
+    `var varVariable = 10;`
+    `// console.log(letVariable); // ReferenceError: Cannot access 'letVariable' before initialization`
+    `// let letVariable = 20;`
+
+98.) What is a pure function?
+ans.) A pure function is a function that:
+    1. Returns the same output for the same given input (deterministic).
+    2. Has no side effects (does not modify anything outside its scope, like global variables, console logs, or network requests).
+Pure functions are easier to test and reason about.
+eg.) `function add(a, b) { return a + b; }` (pure)
+eg.) `let total = 0; function addToTotal(num) { total += num; }` (impure, modifies `total`)
+
+99.) What is `Array.prototype.map()`?
+ans.) The `map()` method creates a **new array** by calling a provided function on every element in the calling array. It does not modify the original array. It's commonly used for transforming data.
+eg.) `const numbers = [1, 2, 3];`
+    `const doubled = numbers.map(num => num * 2);`
+    `console.log(doubled); // [2, 4, 6]`
+    `console.log(numbers); // [1, 2, 3] (original array unchanged)`
+
+100.) What is `Array.prototype.filter()`?
+ans.) The `filter()` method creates a **new array** containing all elements from the original array that pass the test (return `true`) implemented by the provided function. It also does not modify the original array.
+eg.) `const ages = [12, 18, 20, 25];`
+    `const adults = ages.filter(age => age >= 18);`
+    `console.log(adults); // [18, 20, 25]`
+    `console.log(ages);   // [12, 18, 20, 25] (original array unchanged)`
+```

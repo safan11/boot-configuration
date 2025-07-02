@@ -1,0 +1,397 @@
+1.) What is ReactJS?
+ans.) ReactJS is a free and open-source front-end JavaScript library for building user interfaces based on UI components. It's maintained by Meta (Facebook) and a community of individual developers and companies.
+
+2.) What is a Component in React?
+ans.) Components are the building blocks of any React application. They are independent, reusable pieces of UI. A component splits the UI into independent, reusable pieces, and thinks about each piece in isolation.
+eg.) `function Greeting() { return <h1>Hello, World!</h1>; }`
+
+3.) What is JSX?
+ans.) JSX (JavaScript XML) is a syntax extension for JavaScript that looks a lot like HTML. It allows you to write HTML structures directly within your JavaScript code. React uses JSX to describe what the UI should look like.
+eg.) `const element = <h1>Hello, JSX!</h1>;`
+
+4.) Is JSX mandatory in React?
+ans.) No, JSX is not mandatory. You can write React applications using `React.createElement()` without JSX, but JSX makes the code much more readable and concise, especially for complex UIs.
+eg.) `const element = React.createElement('h1', null, 'Hello, without JSX!');`
+
+5.) What is the Virtual DOM?
+ans.) The Virtual DOM (VDOM) is a lightweight copy of the actual DOM. React keeps this virtual representation in memory. When the state of a component changes, React first updates the Virtual DOM, then compares it with the previous VDOM to find the differences, and finally updates only the necessary parts of the real DOM. This process is called reconciliation.
+
+6.) How does React update the actual DOM?
+ans.) React uses the Virtual DOM to optimize updates. When state changes, React builds a new VDOM, compares it with the old VDOM (diffing algorithm), determines the minimal changes needed, and then applies only those specific changes to the actual DOM.
+
+7.) What is a Prop in React?
+ans.) Props (short for properties) are a mechanism for passing data from a parent component to a child component. They are read-only, meaning child components cannot modify the props they receive.
+eg.) `function Welcome(props) { return <h1>Hello, {props.name}!</h1>; }`
+    `<Welcome name="Alice" />`
+
+8.) What is State in React?
+ans.) State is an internal data store of a component that manages data that can change over time. When the state changes, the component re-renders. State is mutable and typically managed within the component using `useState` hook (for functional components) or `this.state` (for class components).
+eg.) `import React, { useState } from 'react';`
+    `function Counter() { const [count, setCount] = useState(0); return <p>Count: {count}</p>; }`
+
+9.) What is the difference between Props and State?
+ans.)
+    - **Props:** External, read-only data passed from parent to child. Immutable within the child component.
+    - **State:** Internal, mutable data managed within a component. Changes to state trigger re-renders.
+
+10.) What are Functional Components?
+ans.) Functional components are JavaScript functions that accept props as an argument and return JSX. Before Hooks, they were often called "stateless functional components" because they couldn't manage their own state. Now, with Hooks, they can have state and lifecycle features.
+eg.) `function MyComponent(props) { return <div>{props.message}</div>; }`
+
+11.) What are Class Components?
+ans.) Class components are ES6 classes that extend `React.Component`. They have their own state, lifecycle methods, and typically use `render()` method to return JSX.
+eg.) `class MyClassComponent extends React.Component { render() { return <div>Hello Class!</div>; } }`
+
+12.) What are Hooks (React Hooks)?
+ans.) Hooks are functions that let you "hook into" React features like state and lifecycle methods from functional components. They were introduced in React 16.8 to enable functional components to have state and side effects, making class components largely unnecessary for new development.
+
+13.) What is the `useState` Hook?
+ans.) `useState` is a React Hook that allows functional components to add state variables. It returns an array with two elements: the current state value and a function to update it.
+eg.) `import React, { useState } from 'react';`
+    `function MyComponent() {`
+    `  const [data, setData] = useState('');`
+    `  return <input value={data} onChange={e => setData(e.target.value)} />;`
+    `}`
+
+14.) What is the `useEffect` Hook?
+ans.) `useEffect` is a React Hook that lets you perform side effects (data fetching, subscriptions, manually changing the DOM, timers, etc.) in functional components. It runs after every render, by default.
+eg.) `import React, { useEffect, useState } from 'react';`
+    `function Timer() {`
+    `  const [seconds, setSeconds] = useState(0);`
+    `  useEffect(() => {`
+    `    const interval = setInterval(() => setSeconds(s => s + 1), 1000);`
+    `    return () => clearInterval(interval); // Cleanup function`
+    `  }, []); // Empty dependency array: runs once on mount and cleans up on unmount`
+    `  return <p>Seconds: {seconds}</p>;`
+    `}`
+
+15.) What is the purpose of the dependency array in `useEffect`?
+ans.) The dependency array controls when the `useEffect` callback function runs:
+    - Empty array (`[]`): Runs the effect once after the initial render (like `componentDidMount`) and its cleanup on unmount (like `componentWillUnmount`).
+    - No array: Runs the effect after every render.
+    - Array with values (`[prop1, state1]`): Runs the effect only when any of the values in the array change.
+
+16.) What are React Keys?
+ans.) Keys are special string attributes you need to include when creating lists of elements in React (e.g., mapping over an array to render multiple components). Keys help React identify which items have changed, are added, or are removed, allowing it to efficiently update the UI. Keys should be unique among siblings.
+eg.) `<ul>{items.map(item => <li key={item.id}>{item.name}</li>)}</ul>`
+
+17.) Why are Keys important when rendering lists?
+ans.) Keys help React's reconciliation algorithm. Without unique keys, React might update the wrong component instance, leading to incorrect UI, performance issues, or unexpected behavior, especially when list items change order, are added, or removed.
+
+18.) What is `Conditional Rendering`?
+ans.) Conditional rendering in React allows you to render different elements or components based on certain conditions (e.g., if a user is logged in, show a different button). You can use JavaScript `if` statements, ternary operators, or logical `&&` operator.
+eg.) `{ isLoggedIn ? <LogoutButton /> : <LoginButton /> }`
+eg.) `{ isLoading && <p>Loading...</p> }`
+
+19.) How do you handle events in React?
+ans.) Event handling in React is similar to HTML, but with some differences:
+    - Event names are camelCase (e.g., `onClick` instead of `onclick`).
+    - You pass a function as the event handler, not a string.
+    - `event.preventDefault()` is explicit.
+eg.) `<button onClick={handleClick}>Click Me</button>`
+    `function handleClick(event) { event.preventDefault(); /* ... */ }`
+
+20.) What is a controlled component?
+ans.) In a controlled component, the form elements (like `input`, `textarea`, `select`) are controlled by React state. The value of the input is always driven by the React state, and any change to the input updates the state, which then re-renders the input with the new value.
+eg.) `<input type="text" value={name} onChange={e => setName(e.target.value)} />`
+
+21.) What is an uncontrolled component?
+ans.) In an uncontrolled component, the form elements manage their own state internally, similar to standard HTML forms. You use a `ref` to get their values directly from the DOM when needed, rather than through state updates.
+eg.) `<input type="text" ref={inputRef} />`
+    `const value = inputRef.current.value;`
+
+22.) What is the purpose of `React.Fragment`?
+ans.) `React.Fragment` allows you to group multiple elements without adding an extra node to the DOM. This is useful when a component needs to return multiple elements but you don't want to wrap them in an unnecessary `div`. Shorthand syntax is `<></>`.
+eg.) `<React.Fragment><ChildA /><ChildB /></React.Fragment>`
+eg.) `<><ChildA /><ChildB /></>`
+
+23.) What is `lifting state up`?
+ans.) Lifting state up is a common pattern in React where if multiple child components need to share or modify the same piece of state, that state is moved (lifted) to their closest common parent component. The parent then passes the state down as props to the children and passes callback functions for children to update the state.
+
+24.) What is Context API?
+ans.) React's Context API provides a way to pass data deeply through the component tree without manually passing props down through every level. It's useful for "global" data like themes, user authentication status, or preferred language.
+eg.) `const MyContext = React.createContext(defaultValue);`
+    `<MyContext.Provider value={data}> ... </MyContext.Provider>`
+    `const value = useContext(MyContext);`
+
+25.) When should you use Context API?
+ans.) Context API is best used for passing data that is considered "global" for a tree of React components, such as the current authenticated user, theme, or preferred language. It should not be used for prop drilling of a few props, as that can make component reuse harder.
+
+26.) What is `ReactDOM.render()`?
+ans.) `ReactDOM.render()` is the entry point for a React application into the browser's DOM. It takes two arguments: the React element (JSX) to render and the DOM element where it should be rendered. (Note: In React 18+, `createRoot` is preferred).
+eg.) `ReactDOM.render(<App />, document.getElementById('root'));`
+
+27.) What is a `Higher-Order Component (HOC)`?
+ans.) A Higher-Order Component (HOC) is a design pattern in React where a function takes a component as an argument and returns a new component with enhanced functionalities or props. It's a way to reuse component logic.
+eg.) `const withLogger = (WrappedComponent) => {`
+    `  return (props) => { console.log('Component rendered'); return <WrappedComponent {...props} />; };`
+    `};`
+    `const MyComponentWithLogging = withLogger(MyComponent);`
+
+28.) What is a `render prop`?
+ans.) A render prop is a pattern where a component takes a function as a prop, and this function returns a React element. The component uses this function to render its children, allowing for flexible and reusable component logic.
+eg.) `<DataProvider render={data => <MyComponent data={data} />} />`
+
+29.) What are `Refs` in React?
+ans.) Refs (references) provide a way to access DOM nodes or React elements created in the render method. They are primarily used when you need to interact with the DOM directly, e.g., managing focus, text selection, or media playback.
+eg.) `const myInputRef = useRef(null);`
+    `<input ref={myInputRef} />`
+    `myInputRef.current.focus();`
+
+30.) When should you use Refs?
+ans.) You should use refs sparingly and only for:
+    - Managing focus, text selection, or media playback.
+    - Triggering imperative animations.
+    - Integrating with third-party DOM libraries.
+Avoid using refs for declarative UI updates; use state and props instead.
+
+31.) What is `PureComponent`?
+ans.) `React.PureComponent` is similar to `React.Component` but implements `shouldComponentUpdate()` with a shallow prop and state comparison automatically. This means it will not re-render if its props and state are shallowly equal to the previous ones, potentially improving performance for certain components.
+
+32.) What is `shouldComponentUpdate()`?
+ans.) `shouldComponentUpdate()` is a lifecycle method in class components that allows you to control whether a component re-renders or not. It receives the `nextProps` and `nextState` and should return `true` to re-render or `false` to prevent re-rendering.
+eg.) `shouldComponentUpdate(nextProps, nextState) { return nextProps.value !== this.props.value; }`
+
+33.) What is `Error Boundaries`?
+ans.) Error Boundaries are React components that catch JavaScript errors anywhere in their child component tree, log those errors, and display a fallback UI instead of crashing the entire application. They are class components with either `static getDerivedStateFromError()` or `componentDidCatch()`.
+eg.) `class ErrorBoundary extends React.Component { ... }`
+
+34.) What is Server-Side Rendering (SSR) in React?
+ans.) Server-Side Rendering (SSR) means rendering React components to HTML on the server, then sending that HTML to the client. This improves initial page load time, especially for users with slow networks or devices, and is better for SEO as search engine crawlers can see the fully rendered content immediately.
+
+35.) What is Client-Side Rendering (CSR)?
+ans.) Client-Side Rendering (CSR) is the traditional way React apps work by default. The browser receives a minimal HTML file, and then JavaScript is downloaded and executed in the browser to render the entire UI. This can lead to a blank screen or loading spinner until the JavaScript finishes executing.
+
+36.) What are controlled vs. uncontrolled components in the context of forms?
+ans.)
+    - **Controlled Component:** Form input elements whose values are entirely controlled by React state. Every state update re-renders the input.
+    - **Uncontrolled Component:** Form input elements whose values are managed by the DOM itself. You use `refs` to get their values when needed (e.g., on form submission).
+
+37.) What is reconciliation?
+ans.) Reconciliation is the process by which React updates the actual DOM. When a component's state or props change, React creates a new virtual DOM tree and compares it with the previous one. It then identifies the minimal changes required and applies only those changes to the real DOM, optimizing performance.
+
+38.) How do you optimize React application performance?
+ans.)
+    - Use `React.memo` (for functional components) or `PureComponent` (for class components).
+    - Use `useCallback` and `useMemo` hooks to memoize functions and values.
+    - Virtualize long lists (e.g., using `react-window`, `react-virtualized`).
+    - Lazy loading components with `React.lazy` and `Suspense`.
+    - Optimize images.
+    - Use production build.
+
+39.) What is `React.memo`?
+ans.) `React.memo` is a Higher-Order Component (HOC) used to optimize functional components. It memoizes the component's render result and prevents re-rendering if its props have not changed. It performs a shallow comparison of props.
+eg.) `const MyMemoizedComponent = React.memo(function MyComponent(props) { /* ... */ });`
+
+40.) What is `useCallback` Hook?
+ans.) `useCallback` is a React Hook that returns a memoized version of a callback function. This prevents unnecessary re-renders of child components that rely on that callback, especially when the callback is passed down as a prop to a `React.memo`'d child component.
+eg.) `const handleClick = useCallback(() => { /* ... */ }, [dependencyArray]);`
+
+41.) What is `useMemo` Hook?
+ans.) `useMemo` is a React Hook that returns a memoized value. It recomputes the memoized value only when one of its dependencies has changed. This is useful for optimizing expensive calculations that shouldn't run on every render.
+eg.) `const memoizedValue = useMemo(() => computeExpensiveValue(a, b), [a, b]);`
+
+42.) What is prop drilling?
+ans.) Prop drilling is the process of passing data (props) from a higher-level component to a deeply nested child component, by passing it through intermediate components that don't actually need the data themselves. It can make code harder to maintain and understand. Context API or state management libraries (like Redux) are often used to avoid it.
+
+43.) What are `Synthetic Events` in React?
+ans.) React's `SyntheticEvent` system is a cross-browser wrapper around the browser's native event system. It normalizes events so that they have consistent properties across different browsers, allowing your event handlers to work identically everywhere.
+
+44.) What is the significance of the `key` prop when working with forms or dynamically rendered inputs?
+ans.) When dynamically adding or removing input fields (e.g., a list of items where each has an input), the `key` prop helps React identify which elements correspond to which data. This ensures React can correctly preserve the state of components and inputs when the list order changes or items are added/removed.
+
+45.) What is `Strict Mode` in React?
+ans.) `React.StrictMode` is a tool for highlighting potential problems in an application. It does not render any visible UI. It activates additional checks and warnings for its descendants. These checks run in development mode only and do not affect the production build.
+eg.) `<React.StrictMode><App /></React.StrictMode>`
+
+46.) What is `Portals` in React?
+ans.) Portals provide a way to render children into a DOM node that exists outside the DOM hierarchy of the parent component. They are useful for situations like modals, tooltips, or popovers, where the component's visual placement needs to break out of its parent's styling or stacking context.
+eg.) `ReactDOM.createPortal(child, domNode)`
+
+47.) What is the purpose of `forwardRef`?
+ans.) `React.forwardRef` is a function that lets you pass a ref down through a component to one of its children's DOM nodes or components. It's useful when a parent component needs to imperatively call a method or access a DOM element within a child component.
+eg.) `const FancyButton = React.forwardRef((props, ref) => (`
+    `  <button ref={ref} className="FancyButton">{props.children}</button>`
+    `));`
+
+48.) What is `useReducer` Hook?
+ans.) `useReducer` is a React Hook that provides an alternative to `useState` for managing more complex state logic that involves multiple sub-values or when the next state depends on the previous one. It's often used with a reducer function similar to Redux.
+eg.) `const [state, dispatch] = useReducer(reducer, initialState);`
+
+49.) When would you choose `useReducer` over `useState`?
+ans.) Use `useReducer` when:
+    - State logic is complex and involves multiple related sub-values.
+    - The next state depends on the previous state in a complex way.
+    - You want to pass down a `dispatch` function instead of individual callback props, as `dispatch` is stable across re-renders.
+
+50.) What is `Context.Consumer` and `Context.Provider`?
+ans.)
+    - `Context.Provider`: A component that "provides" the value to its descendant components. It takes a `value` prop which will be passed down the tree.
+    - `Context.Consumer`: A component that subscribes to context changes. It requires a function as a child (render prop pattern) that receives the current context value. (Note: `useContext` hook is the preferred way to consume context in functional components now).
+eg.) `<MyContext.Provider value={theme}>`
+    `  <MyContext.Consumer>{(theme) => <Button theme={theme} />}</MyContext.Consumer>`
+    `</MyContext.Provider>`
+```
+
+
+Got it\! Here are 30 more questions, focusing on Redux basics and integrating with React, keeping the explanations simple, and continuing the numbering from 51.
+
+```
+51.) What is Redux?
+ans.) Redux is a predictable state container for JavaScript applications. It helps you manage the state of your entire application in a single, centralized store, making it easier to understand, debug, and test your app's behavior.
+
+52.) What are the three core principles of Redux?
+ans.)
+    1.  **Single source of truth:** The entire application state is stored in a single object tree within a single store.
+    2.  **State is read-only:** The only way to change the state is by emitting an action, an object describing what happened.
+    3.  **Changes are made with pure functions:** To specify how the state tree is transformed by actions, you write pure functions called reducers.
+
+53.) What is a `Store` in Redux?
+ans.) The Store is the single source of truth that holds the entire state tree of your application. It's the central hub where all state changes occur. There should only be one Redux store in a typical application.
+
+54.) How do you create a Redux Store?
+ans.) You create a store using the `createStore` function from the Redux library, passing in your root reducer. (Note: In Redux Toolkit, `configureStore` is the recommended way).
+eg.) `import { createStore } from 'redux';`
+    `import rootReducer from './reducers';`
+    `const store = createStore(rootReducer);`
+
+55.) What is an `Action` in Redux?
+ans.) An Action is a plain JavaScript object that describes *what happened* in the application. It's the only way to send data from your application to the Redux store. Actions must have a `type` property, typically a string constant.
+eg.) `const addTodoAction = { type: 'ADD_TODO', text: 'Learn Redux' };`
+
+56.) What is an `Action Creator`?
+ans.) An action creator is a function that simply returns an action object. This makes actions easier to create and reuse, and helps avoid typos in action types.
+eg.) `function addTodo(text) {`
+    `  return { type: 'ADD_TODO', text };`
+    `}`
+    `const action = addTodo('Buy milk');`
+
+57.) What is a `Reducer` in Redux?
+ans.) A Reducer is a pure JavaScript function that takes the current `state` and an `action` as arguments, and returns a *new state*. It specifies how the application's state changes in response to actions. Reducers must not mutate the original state directly.
+eg.) `function todosReducer(state = [], action) {`
+    `  switch (action.type) {`
+    `    case 'ADD_TODO':`
+    `      return [...state, { id: Date.now(), text: action.text }];`
+    `    default:`
+    `      return state;`
+    `  }`
+    `}`
+
+58.) Why must Reducers be pure functions?
+ans.) Reducers must be pure functions because they should produce the same output for the same input, without any side effects. This makes state changes predictable, testable, and enables features like time-travel debugging.
+
+59.) What is `dispatch` in Redux?
+ans.) `dispatch` is a function (provided by the Redux store) that sends an action to the store. It's the only way to trigger a state change. When `dispatch` is called, the store runs the action through the root reducer.
+eg.) `store.dispatch({ type: 'INCREMENT' });`
+eg.) `store.dispatch(addTodo('Go to gym'));`
+
+60.) How do you get the current state from the Redux Store?
+ans.) You can get the current state using the `getState()` method of the store object.
+eg.) `const currentState = store.getState();`
+    `console.log(currentState);`
+
+61.) What is `combineReducers`?
+ans.) `combineReducers` is a utility function from Redux that helps you combine multiple reducer functions into a single root reducer. Each reducer manages its own slice of the state tree.
+eg.) `import { combineReducers } from 'redux';`
+    `import userReducer from './userReducer';`
+    `import productReducer from './productReducer';`
+    `const rootReducer = combineReducers({`
+    `  user: userReducer,`
+    `  products: productReducer,`
+    `});`
+
+62.) What is the purpose of `redux-thunk`?
+ans.) `redux-thunk` is a middleware that allows you to write action creators that return a function instead of a plain action object. This function can then perform asynchronous operations (like API calls) and `dispatch` actions based on the results. It's used for handling side effects in Redux.
+
+63.) What is `Redux Toolkit`?
+ans.) Redux Toolkit (RTK) is the official opinionated, batteries-included toolset for efficient Redux development. It simplifies common Redux tasks, reduces boilerplate code, and includes utilities like `createSlice` and `configureStore` to make Redux easier to learn and use.
+
+64.) What is `createSlice` in Redux Toolkit?
+ans.) `createSlice` is a function from Redux Toolkit that combines a reducer, action creators, and action types into a single unit. It automatically generates action types and action creators based on the reducer's name and its defined "reducers" (mini-reducers). It also handles immutable updates with Immer.
+eg.) `import { createSlice } from '@reduxjs/toolkit';`
+    `const counterSlice = createSlice({`
+    `  name: 'counter',`
+    `  initialState: { value: 0 },`
+    `  reducers: {`
+    `    increment: (state) => { state.value += 1; },`
+    `  },`
+    `});`
+
+65.) What is `configureStore` in Redux Toolkit?
+ans.) `configureStore` is a function from Redux Toolkit that simplifies the store setup process. It automatically sets up Redux DevTools, adds some common middleware (like Redux Thunk), and combines your reducers. It's the recommended way to create a Redux store with RTK.
+eg.) `import { configureStore } from '@reduxjs/toolkit';`
+    `import counterReducer from './counterSlice';`
+    `const store = configureStore({`
+    `  reducer: {`
+    `    counter: counterReducer,`
+    `  },`
+    `});`
+
+66.) What is `react-redux` library?
+ans.) `react-redux` is the official React binding for Redux. It provides helper functions and hooks to connect your React components to the Redux store, allowing components to read state from the store and dispatch actions.
+
+67.) What is the `Provider` component in `react-redux`?
+ans.) The `Provider` component is part of `react-redux`. You wrap your entire React application with it, passing the Redux store as a prop. This makes the store accessible to all nested components without explicitly passing it down through props (Context API is used internally).
+eg.) `ReactDOM.render(`
+    `  <Provider store={store}>`
+    `    <App />`
+    `  </Provider>,`
+    `  document.getElementById('root')`
+    `);`
+
+68.) What is the `useSelector` Hook in `react-redux`?
+ans.) `useSelector` is a Hook from `react-redux` that allows functional components to extract (select) data from the Redux store state. It automatically subscribes the component to the store, so the component will re-render if the selected state changes.
+eg.) `import { useSelector } from 'react-redux';`
+    `function CounterDisplay() {`
+    `  const count = useSelector((state) => state.counter.value);`
+    `  return <p>Count: {count}</p>;`
+    `}`
+
+69.) What is the `useDispatch` Hook in `react-redux`?
+ans.) `useDispatch` is a Hook from `react-redux` that returns a reference to the `dispatch` function from the Redux store. You can then use this `dispatch` function to send actions to the store, triggering state updates.
+eg.) `import { useDispatch } from 'react-redux';`
+    `import { increment } from './counterSlice';`
+    `function CounterButton() {`
+    `  const dispatch = useDispatch();`
+    `  return <button onClick={() => dispatch(increment())}>Increment</button>;`
+    `}`
+
+70.) How do `useSelector` and `useDispatch` replace `connect` HOC?
+ans.) Before Hooks, `connect` was used to connect class components to Redux. `useSelector` replaces the state mapping part of `connect` (like `mapStateToProps`), and `useDispatch` replaces the dispatch mapping part (like `mapDispatchToProps`), providing a simpler and more concise way to interact with Redux in functional components.
+
+71.) What is normalization of state in Redux?
+ans.) Normalization of state means organizing your state in a way that minimizes redundancy and makes it easier to update. This typically involves storing data in a flat structure, where each item has a unique ID and related data is referenced by ID.
+eg.) Instead of `[{id:1, user:{name:"A"}}, {id:2, user:{name:"B"}}]`, normalize to `{ users: {1:{name:"A"}, 2:{name:"B"}} }` and refer to user IDs.
+
+72.) What are `selectors` in Redux?
+ans.) Selectors are pure functions that take the Redux state as an argument and derive computed data from it. They help encapsulate state logic, promote reusability, and optimize performance by preventing unnecessary re-renders (especially when used with memoization libraries like Reselect).
+
+73.) What is `Redux DevTools`?
+ans.) Redux DevTools is a powerful browser extension that provides a rich debugging environment for Redux applications. It allows you to inspect the state, dispatched actions, and even "time-travel" through state changes, making debugging Redux applications much easier.
+
+74.) Can you have multiple Redux stores in an application?
+ans.) While technically possible, it's strongly discouraged in Redux's core principles. Redux advocates for a single source of truth, meaning one store for the entire application state. Having multiple stores complicates state management, synchronization, and debugging.
+
+75.) What is `middleware` in Redux?
+ans.) Middleware in Redux provides a third-party extension point between `dispatching an action` and the `moment it reaches the reducer`. It's used for handling side effects like logging, asynchronous operations (e.g., API calls with Redux Thunk or Redux Saga), or crash reporting.
+eg.) `applyMiddleware(thunk, logger)`
+
+76.) How does Redux handle immutable updates?
+ans.) Redux strictly requires that reducers do not mutate the original state directly. Instead, they must return a *new* state object with the necessary changes. This is achieved using JavaScript techniques like spread operator (`...`), `Object.assign()`, or helper libraries like Immer (used by Redux Toolkit's `createSlice`).
+eg.) `return { ...state, count: state.count + 1 };`
+
+77.) What is the purpose of `immer` in Redux Toolkit?
+ans.) Immer is a library that allows you to write "mutating" logic inside reducers while still producing immutable updates. Redux Toolkit's `createSlice` uses Immer internally, so you can write code like `state.value = 1` inside your reducers, and Immer will handle creating the new immutable state behind the scenes.
+
+78.) What is `Redux Saga`?
+ans.) Redux Saga is a middleware library that uses ES6 Generators to make side effects (like asynchronous data fetching) easier to manage, more efficient, and testable. It models asynchronous flows as background processes.
+
+79.) What is the main difference between `redux-thunk` and `redux-saga`?
+ans.)
+    - **Redux Thunk:** Simpler to learn, uses Promises and regular functions. Good for simpler async logic.
+    - **Redux Saga:** More powerful, uses ES6 Generators. Better for complex, long-running, or highly concurrent async flows, offering more control over side effects.
+
+80.) How do you initialize the state in a Redux reducer?
+ans.) You can provide a default value for the `state` parameter in the reducer function. This default value will be used when the reducer is called for the first time with an `undefined` state.
+eg.) `function myReducer(state = { counter: 0, todos: [] }, action) { /* ... */ }`
+```
