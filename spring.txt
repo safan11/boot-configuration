@@ -1,27 +1,3 @@
-
-
-Let's break down the 150 questions:
-
-  * **Spring Core:** \~25-30 questions
-  * **Spring Boot:** \~25-30 questions
-  * **Spring Web (MVC):** \~20-25 questions
-  * **Spring Data JPA:** \~20-25 questions
-  * **Spring REST:** \~15-20 questions
-  * **Spring Security:** \~15-20 questions
-  * **Microservices (Spring context):** \~10-15 questions
-
-This totals roughly 150 questions. I will use the requested format:
-`[Question Number].) [Question Text]`
-`ans.) [Easy Explanation]`
-`eg.) [Relevant Example (if applicable)]`
-
-This will be a very long response. Please be aware that generating this many detailed questions and answers will take some time.
-
------
-
-Here is the content for your .txt file:
-
-```
 1.) What is the Spring Framework?
 ans.) The Spring Framework is an open-source, comprehensive, enterprise-level framework for building Java applications. It provides robust infrastructure support for developing various types of applications, including web apps, microservices, and enterprise systems, by handling common tasks like dependency injection, aspect-oriented programming, and transaction management.
 
@@ -755,3 +731,4 @@ ans.)
 ans.) The fail-fast principle suggests that a system should detect failures as early as possible and fail immediately rather than continuing in a potentially corrupted state. In microservices, this can involve quick timeouts, immediate error responses, and proper circuit breaker configurations to prevent a small failure from cascading through the entire system.
 
 ```
+
